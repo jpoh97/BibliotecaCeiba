@@ -21,11 +21,8 @@ public class PrestamoEntity {
 	@ManyToOne
 	@JoinColumn(name="ID_LIBRO",referencedColumnName="id")
 	private LibroEntity libro;
-	
 	private Date fechaSolicitud;
-	
 	private Date fechaEntregaMaxima;
-	
 	private String nombreUsuario;
 	
 	public Long getId() {
@@ -55,8 +52,16 @@ public class PrestamoEntity {
 	public Date getFechaEntregaMaxima() {
 		return fechaEntregaMaxima;
 	}
-	
+
+	public void setFechaEntregaMaxima(Date fechaEntregaMaxima) {
+		this.fechaEntregaMaxima = fechaEntregaMaxima;
+	}
+
 	public String getNombreUsuario() {
 		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 }

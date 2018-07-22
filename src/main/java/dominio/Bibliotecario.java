@@ -4,20 +4,19 @@ import dominio.excepcion.PrestamoException;
 import dominio.repositorio.RepositorioLibro;
 import dominio.repositorio.RepositorioPrestamo;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.lang.reflect.Array;
+import java.util.*;
 
 
 public class Bibliotecario {
 
 	// Mensajes de excepcion
 	public static final String EL_LIBRO_NO_SE_ENCUENTRA_DISPONIBLE = "El libro no se encuentra disponible";
-	private static final String EL_LIBRO_SOLO_SE_PUEDE_UTILIZAR_EN_LA_BIBLIOTECA = "los libros palíndromos solo se " +
+	public static final String EL_LIBRO_SOLO_SE_PUEDE_UTILIZAR_EN_LA_BIBLIOTECA = "los libros palíndromos solo se " +
 			"pueden utilizar en la biblioteca";
 
-	private final int MAXIMA_SUMA_ISBN = 30;
-	private final int DIAS_A_INCREMENTAR = 16;
+	private static final int MAXIMA_SUMA_ISBN = 30;
+	private static final int DIAS_A_INCREMENTAR = 16;
 
 	private RepositorioLibro repositorioLibro;
 	private RepositorioPrestamo repositorioPrestamo;
@@ -57,9 +56,7 @@ public class Bibliotecario {
 
 	public boolean esPrestado(String isbn) {
 		if (Optional.ofNullable(isbn).isPresent()) {
-			if (Optional.ofNullable(repositorioPrestamo.obtenerLibroPrestadoPorIsbn(isbn)).isPresent()) {
-				return true;
-			}
+			return Optional.ofNullable(repositorioPrestamo.obtenerLibroPrestadoPorIsbn(isbn)).isPresent();
 		}
 		return false;
 	}

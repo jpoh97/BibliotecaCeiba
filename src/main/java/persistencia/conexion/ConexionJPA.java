@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 public class ConexionJPA {
 	
 	private static final String BIBLIOTECA_PU_TEST = "biblioteca-pu-test";
-	private static EntityManagerFactory entityManagerFactory;
+	private EntityManagerFactory entityManagerFactory;
 
 	public ConexionJPA() {
 		entityManagerFactory = Persistence.createEntityManagerFactory(BIBLIOTECA_PU_TEST);
