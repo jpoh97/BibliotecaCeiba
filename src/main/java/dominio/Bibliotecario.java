@@ -16,8 +16,8 @@ public class Bibliotecario {
 	private static final String EL_LIBRO_SOLO_SE_PUEDE_UTILIZAR_EN_LA_BIBLIOTECA = "los libros palíndromos solo se " +
 			"pueden utilizar en la biblioteca";
 
-	private static final int MAXIMA_SUMA_ISBN = 30;
-	private static final int DIAS_A_INCREMENTAR = 17;
+	private final int MAXIMA_SUMA_ISBN = 30;
+	private final int DIAS_A_INCREMENTAR = 16;
 
 	private RepositorioLibro repositorioLibro;
 	private RepositorioPrestamo repositorioPrestamo;
@@ -64,12 +64,18 @@ public class Bibliotecario {
 		return false;
 	}
 
-	public boolean esPalindromo(String isbn) { //todo null
-		StringBuilder isbnReversado = new StringBuilder(isbn).reverse();
-		return isbnReversado.equals(isbn);
+	public boolean esPalindromo(String isbn) {
+		if (Optional.ofNullable(isbn).isPresent()) {
+			StringBuilder isbnReversado = new StringBuilder(isbn).reverse();
+			return isbnReversado.toString().equals(isbn);
+		}
+		return false;
 	}
 
-	public static boolean esMayorATreinta(String isbn) {
+	public boolean esMayorATreinta(String isbn) {
+		if (!Optional.ofNullable(isbn).isPresent()) {
+			return false;
+		}
 		String valoresNumericos = isbn.replaceAll("\\D+","");
 		int suma = 0;
 		for(char caracter : valoresNumericos.toCharArray()) {
@@ -78,17 +84,24 @@ public class Bibliotecario {
 		return suma > MAXIMA_SUMA_ISBN;
 	}
 
-	public static Date incrementarDosSemanas(Date date) {
+	public Date incrementarDosSemanas(Date date) {
+		if (!Optional.ofNullable(date).isPresent()) {
+			return null;
+		}
 		Calendar calendario = Calendar.getInstance();
 		calendario.setTime(date);
-		if (calendario.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+		if (calendario.get(Calendar.DAY_OF_WEEK) > Calendar.THURSDAY
+				|| calendario.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
 			return incrementarDias(calendario, DIAS_A_INCREMENTAR + 1);
 		}
 		return incrementarDias(calendario, DIAS_A_INCREMENTAR);
 	}
 
-	public static Date incrementarDias(Calendar calendario, int dias) {
-		calendario.add(Calendar.DATE, dias);
-		return calendario.getTime();
+	public Date incrementarDias(Calendar calendario, int dias) {
+		if (Optional.ofNullable(calendario).isPresent()) {
+			calendario.add(Calendar.DATE, dias);
+			return calendario.getTime();
+		}
+		return null;
 	}
 }

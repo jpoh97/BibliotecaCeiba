@@ -30,5 +30,4 @@ public class LibroTest {
 		assertEquals(ISBN, libro.getIsbn());
 		assertEquals(ANIO, libro.getAnio());
 	}
-
 }

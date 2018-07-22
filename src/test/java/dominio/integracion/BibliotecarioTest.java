@@ -44,35 +44,33 @@ public class BibliotecarioTest {
 
 	@Test
 	public void prestarLibroTest() {
-
 		// arrange
 		Libro libro = new LibroTestDataBuilder().conTitulo(CRONICA_DE_UNA_MUERTA_ANUNCIADA).build();
 		repositorioLibros.agregar(libro);
-		Bibliotecario blibliotecario = new Bibliotecario(repositorioLibros, repositorioPrestamo);
+		Bibliotecario bibliotecario = new Bibliotecario(repositorioLibros, repositorioPrestamo);
 
 		// act
-		blibliotecario.prestar(libro.getIsbn(), PRESTADOR);
+		bibliotecario.prestar(libro.getIsbn(), PRESTADOR);
 
 		// assert
-		Assert.assertTrue(blibliotecario.esPrestado(libro.getIsbn()));
+		Assert.assertTrue(bibliotecario.esPrestado(libro.getIsbn()));
 		Assert.assertNotNull(repositorioPrestamo.obtenerLibroPrestadoPorIsbn(libro.getIsbn()));
 	}
 
 	@Test
 	public void prestarLibroNoDisponibleTest() {
-
 		// arrange
 		Libro libro = new LibroTestDataBuilder().conTitulo(CRONICA_DE_UNA_MUERTA_ANUNCIADA).build();
 		
 		repositorioLibros.agregar(libro);
 		
-		Bibliotecario blibliotecario = new Bibliotecario(repositorioLibros, repositorioPrestamo);
+		Bibliotecario bibliotecario = new Bibliotecario(repositorioLibros, repositorioPrestamo);
 
 		// act
-		blibliotecario.prestar(libro.getIsbn(), PRESTADOR);
+		bibliotecario.prestar(libro.getIsbn(), PRESTADOR);
 		try {
-			
-			blibliotecario.prestar(libro.getIsbn(), PRESTADOR);
+
+			bibliotecario.prestar(libro.getIsbn(), PRESTADOR);
 			fail();
 			
 		} catch (PrestamoException e) {
